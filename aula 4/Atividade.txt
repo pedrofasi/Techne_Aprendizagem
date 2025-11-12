@@ -1,0 +1,11 @@
++Lista 1 Herança
+ 
+Exercício 1: Crie uma classe base chamada "Funcionario" com atributos como "Nome" e "Salario". Crie uma classe derivada chamada "Gerente" que herde de "Funcionario" e adicione um atributo adicional chamado "Setor".
+ 
+Exercício 2: Crie uma classe base chamada "Produto" com atributos como "Nome" e "Preco". Crie uma classe derivada chamada "Livro" que herde de "Produto" e adicione um atributos de um livro. Crie 4 livros.
+ 
+Exercício 3: Crie uma classe base chamada "Pessoa" com um atributo "Nome". Crie uma classe derivada chamada "Estudante" que herde de "Pessoa" e adicione um atributo adicional chamado "Matricula".
+ 
+Exercício 4: Crie uma classe base chamada "Figura" com um método "CalcularArea()" que retorna a área da figura. Crie uma classe derivada chamada "Retangulo" que herde de "Figura" e implemente o método "CalcularArea()" para calcular a área do retângulo.
+ 
+Exercício 5 (mais desafiador): Crie uma hierarquia de classes para um sistema de uma loja de eletrônicos. Crie uma classe base chamada "Produto" com propriedades como "Nome" e "Preco". Crie classes derivadas como "Celular" e "Notebook" que herdem de "Produto" e adicionem propriedades adicionais específicas para cada tipo de produto. Implemente métodos ou funcionalidades relevantes, como "CalcularDesconto" ou "VerificarDisponibilidade".
