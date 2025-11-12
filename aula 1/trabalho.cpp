@@ -32,10 +32,10 @@ struct Produto {
 Produto cadastrar_preco() {
     Produto p;
     printf("Digite o nome do produto: ");
-    scanf("%s", p.nome);
+    scanf(" %[^\n]", p.nome);
     printf("Digite o preco do produto: ");
     scanf("%f", &p.preco);
-    printf("Produto cadastrado com sucesso!\n", p.nome, p.preco);
+    printf("Produto cadastrado com sucesso!\n");
     printf("Pressione qualquer coisa para continuar...\n");
     fflush(stdin);
     getchar();
@@ -53,22 +53,58 @@ void listar_precos(vector<Produto> produtos) {
 }
 
 void buscar_produto(vector<Produto> produtos) {
+    if (produtos.empty()) {
+        printf("Nenhum produto cadastrado.\n");
+        return;
+    }
     char nome_busca[50];
+    int contador = 0;
+    bool caracterDiferente = true;
     bool encontrado = false;
+    int tamanho_busca;
+    int tamanho_produto;
     printf("Digite o nome do produto para buscar: ");
     scanf("%s", nome_busca);
-    for (int i = 0; i < produtos.size(); i++) {
-        if (strcmp(produtos[i].nome, nome_busca) == 0) {
-            printf("Produto encontrado: %s, Preco: %.2f\n", produtos[i].nome, produtos[i].preco);
-            encontrado = true;
+    for(int i = 0; i< produtos.size(); i++){
+        tamanho_busca = 0;
+        tamanho_produto = 0;
+        contador = 0;
+        
+        // Contando quantos numeros de caracter cada um tem
+        for(; nome_busca[tamanho_busca] != '\0'; tamanho_busca++);
+        for(; produtos[i].nome[tamanho_produto] != '\0'; tamanho_produto++);
+        
+        // Se os numeros de caracter são iguais, há a possibilidade que o produto pode ser encontrado
+        // Caso não, ele nem entra.
+
+        if(tamanho_produto == tamanho_busca){
+            // Verificação caracter por caracter, caso haja um erro, flag vira falso, e ele não entra no proximo if.
+            for(int j = 0; j < tamanho_produto; j++){
+                if(produtos[i].nome[j] != nome_busca[j]){
+                    caracterDiferente = false;
+                    break;
+                }
+            }
+            if(caracterDiferente){
+                // Produto encontrado!!
+                encontrado = true;
+                printf("PRODUTO ENCONTRADO:\n");
+                printf("Nome: %s\n", produtos[i].nome);
+                printf("Preco: %.2f\n", produtos[i].preco);
+            }
         }
     }
-    if(!encontrado){
-        printf("Produto nao encontrado.\n");        
+    if(encontrado){
+        printf("Pressione qualquer coisa para continuar...\n");
+        fflush(stdin);
+        getchar();
     }
-    printf("Pressione qualquer coisa para continuar...\n");
-    fflush(stdin);
-    getchar();
+    else{
+        printf("Nao encontramos o produto! =(\n");
+        printf("Pressione qualquer coisa para continuar...\n");
+        fflush(stdin);
+        getchar();
+    }
 }
 
 void mostrar_produto_mais_caro_e_barato(vector<Produto> produtos) {
@@ -101,7 +137,9 @@ void media_precos_produtos(vector<Produto> produtos) {
     float soma = 0;
     for (int i = 0; i < produtos.size(); i++) {
         soma += produtos[i].preco;
+        printf("(%s) -> %.2f +\n",produtos[i].nome,produtos[i].preco);
     }
+    printf("\t------------ / %d\n",produtos.size());
     float media = soma / produtos.size();
     printf("Media de precos dos produtos: %.2f\n", media);
     printf("Pressione qualquer coisa para continuar...\n");
@@ -138,7 +176,7 @@ int main() {
         } else if(opcao == 6){
             // Código para cadastrar nome da loja
             printf("Digite o nome da loja: ");
-            scanf("%s", nomeLoja);
+            scanf(" %[^\n]", nomeLoja);
             printf("Nome da loja cadastrado: %s\n", nomeLoja);
             printf("Pressione qualquer coisa para continuar...\n");
             fflush(stdin);
