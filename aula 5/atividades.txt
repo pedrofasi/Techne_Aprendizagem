@@ -1,0 +1,48 @@
+1. Sistema de Mensagens (WhatsApp/Telegram)
+Crie um sistema onde exista uma classe base Mensagem com um método virtual enviar().
+Crie subclasses:
+MensagemTexto
+MensagemVoz
+MensagemImagem
+Cada tipo deve sobrescrever enviar() com uma saída diferente, por exemplo:
+Texto: “Enviando texto: olá mundo!”
+Voz: “Enviando áudio de 17s...”
+Imagem: “Enviando imagem (2048x1080)...”
+No main, crie um vetor Mensagem* mensagens[5] com misto dos três tipos e chame enviar() num loop.
+2. X-Men – Sistema de Mutantes
+Classe base: Mutante, com método virtual usarPoder().
+Crie 3 mutantes:
+Wolverine → “Ativando garras de adamantium!”
+JeanGrey → “Telepatia e telecinese ativadas!”
+Noturno → “BAMF! Teletransportando...”
+Simule uma batalha chamando usarPoder() polimorficamente num array de Mutante*.
+3. Animais Fantásticos – Criaturas e Sons
+Classe base: CriaturaMagica, com emitirSom() virtual.
+Filhos:
+Grifo
+Dragao
+Fenix
+Cada um emitir um som diferente.
+No main, faça uma lista de criaturas e chame emitirSom().
+Extra: Crie uma função void fazerBarulho(CriaturaMagica* c) que recebe um ponteiro genérico e chama o método virtual. Mostra que o tipo real é o da classe filha.
+4. Pagamentos – Sistema Financeiro
+Classe base: Pagamento, com método virtual processar().
+Filhos:
+PagamentoPix
+PagamentoCartaoCredito
+PagamentoBoleto
+Cada um descreve como é processado, por exemplo:
+Pix → “Processando transferência instantânea.”
+Cartão → “Autorizando transação via operadora.”
+Boleto → “Registrando boleto em banco.”
+Crie um vetor de pagamentos e processe todos.
+ 
+5. RPG – Habilidades de Classes (Mago, Guerreiro, Arqueiro)
+Classe base: Personagem, com método virtual atacar().
+Derivados:
+Mago → “Lançando bola de fogo!”
+Guerreiro → “Golpeando com espada pesada!”
+Arqueiro → “Disparando flecha precisa!”
+Peça para os alunos criarem um vector<Personagem*> equipe com misto de personagens e chamarem atacar() num loop.
+Extra:
+Adicionar um método virtual especial() e fazer cada classe implementar algo totalmente diferente.
