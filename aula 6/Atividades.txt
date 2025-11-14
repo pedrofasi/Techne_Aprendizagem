@@ -1,0 +1,14 @@
+SRP (Single Responsibility Principle)
+Gerenciador de Usuários: Crie uma classe UsuarioService que seja responsável por cadastrar usuários, enviar e-mail de boas-vindas e gerar um relatório com todos os usuários cadastrados. Refatore essa classe para seguir o SRP, separando as responsabilidades em classes distintas (ex.: cadastro/gerenciamento, envio de e-mail, geração de relatório).
+ 
+OCP (Open/Closed Principle)
+Cálculo de Frete: Implemente uma classe Pedido que calcula o valor do frete de acordo com o tipo de entrega (normal ou expressa), usando if ou switch. Em seguida, refatore o código para seguir o OCP, criando uma abstração para cálculo de frete e classes específicas para cada tipo (por exemplo, FreteNormal, FreteExpresso), de forma que novos tipos de frete possam ser adicionados sem modificar a classe Pedido.
+ 
+LSP (Liskov Substitution Principle)
+Formas de Pagamento com Limite: Implemente uma classe base Cartao com métodos para autorizar pagamento e consultar limite disponível. Crie as subclasses CartaoCredito e CartaoDebito, garantindo que qualquer código que use Cartao funcione corretamente com as subclasses, sem quebrar expectativas de comportamento (limites, autorização, etc.).
+ 
+ISP (Interface Segregation Principle)
+Mídia Player: Suponha uma interface única IMidiaPlayer com os métodos reproduzirMusica, reproduzirVideo e gravarAudio. Mostre o problema de forçar classes como PlayerMusicaSimples e GravadorDeAudio a implementarem métodos que não fazem sentido para elas. Em seguida, refatore criando interfaces menores e mais específicas (por exemplo, IReproduzMusica, IReproduzVideo, IGravaAudio) e ajuste as classes para implementar apenas o que realmente utilizam.
+ 
+DIP (Dependency Inversion Principle)
+Sistema de Notificações: Implemente um sistema de notificação ao usuário que possa enviar mensagens por e-mail e SMS. Comece com uma classe NotificacaoService que instancia diretamente EmailService e SmsService. Depois, refatore para seguir o DIP, criando uma abstração (por exemplo, INotificador) e fazendo com que NotificacaoService dependa dessa abstração, permitindo adicionar novos tipos de notificação (como push) sem modificar o código principal.
