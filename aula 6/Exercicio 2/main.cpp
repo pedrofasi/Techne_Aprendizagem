@@ -9,7 +9,6 @@ de forma que novos tipos de frete possam ser adicionados sem modificar a classe 
 #include <string>
 #include <vector>
 
-// Classe sem refatoração
 
 class FreteRepository{
     public:
