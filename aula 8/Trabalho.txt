@@ -1,0 +1,87 @@
+Grupo:
+Arthur
+Graziele
+Pedro H Reis
+
+Projeto:
+Trabalho RPG De Turno
+ 
+Analise as diretrizes básicas abaixo e crie um jogo (RPG) de turno.
+ 
+OBS: Nomes de classes, variáveis, conteúdo e valores podem ser alterados.
+ 
+Combate em um Jogo de RPG de Turno
+O que é um Turno?
+Um turno é uma oportunidade de ação para um personagem ou inimigo durante o combate. Em cada turno, o personagem pode realizar uma ação específica, como atacar, usar uma habilidade, defender ou tentar fugir. Cada personagem envolvido na batalha tem a chance de agir uma vez por turno.
+O que é uma Rodada?
+Uma rodada é a soma de todos os turnos de todos os personagens e inimigos envolvidos na batalha. Após todos terem realizado suas ações, a rodada é considerada completa, e uma nova rodada começa.
+Como Funciona o Combate?
+Início da Batalha:
+Quando uma batalha começa, todos os personagens e inimigos participantes são listados.
+A ordem dos turnos é determinada por um atributo como velocidade ou destreza, ou, a ordem clássica: personagem -> inimigo -> personagem -> inimigo.
+Execução de Turnos:
+Cada personagem, em sua vez, pode escolher uma ação: atacar, usar uma habilidade, defender ou fugir.
+A ação é executada, e seus efeitos são aplicados (por exemplo, dano ao inimigo, cura de um aliado, etc.).
+Após a ação, o turno do personagem termina, e o próximo personagem na ordem realiza sua ação.
+Fim da Rodada:
+Quando todos os personagens e inimigos tiverem completado seus turnos, a rodada termina.
+Se houver personagens ou inimigos ainda de pé, uma nova rodada começa.
+Fim do Combate:
+O combate continua até que todos os inimigos ou todos os personagens sejam derrotados.
+Após a batalha, os personagens podem receber pontos de experiência, itens, e outros prêmios.
+ 
+Mãos à obra:
+ 
+1. Criação de Personagens:
+ 
+   - Crie uma classe base chamada `Personagem` com os seguintes atributos:
+     - `Nome` (string): o nome do personagem.
+     - `PontosVida` (int): os pontos de vida do personagem.
+     - `Forca` (int): a força do personagem.
+     - `Defesa` (int): a defesa do personagem.
+ 
+   - Crie classes derivadas para cada classe específica, como `Guerreiro`, `Mago` e `Arqueiro`, que herdam da classe `Personagem`.
+   
+   - Adicione atributos específicos para cada classe, como `PontosMagia` para o Mago, `Destreza` para o Arqueiro, etc.
+ 
+2. Combate:
+ 
+   - Crie uma classe chamada `Batalha` que será responsável por controlar as ações de combate.
+   
+   - A classe `Batalha` deve ter um método para determinar a ordem dos turnos.
+   
+   - Cada personagem deve ter um método `Atacar` que calcula o dano do ataque baseado na força do personagem e na defesa do alvo.
+   
+   - Crie métodos para as outras ações possíveis durante o combate, como `UsarMagia`, `Defender` e `Fugir`.
+ 
+3. Inimigos:
+   - Crie uma classe `Inimigo` que também derive da classe `Personagem`.
+   
+   - Adicione atributos específicos para os inimigos, como `Tipo` (por exemplo, "Monstro", "Chefe", etc.), `RecompensaXP` (experiência ganha ao derrotar o inimigo), etc.
+ 
+4. Vantagens e Fraquezas:
+   - Crie uma classe `Habilidade` com os seguintes atributos:
+`Nome` (string): o nome da habilidade.
+`Tipo` (string): o tipo da habilidade (por exemplo, "Fogo", "Gelo", "Elétrico", etc.).
+`DanoBase` (int): o dano base causado pela habilidade.
+   
+   - Adicione um atributo `Habilidades` na classe `Personagem` que será uma lista de habilidades.
+   
+   - Adicione um método `CalcularDano` na classe `Personagem` que verifique as vantagens e fraquezas do personagem e do alvo com base no tipo da habilidade utilizada.
+ 
+5. Fim de Batalha:
+ 
+   - Quando a batalha terminar, atualize os atributos dos personagens, como pontos de vida, pontos de experiência, etc.
+   
+   - Crie uma classe `Jogo` que controla o fluxo do jogo, como a criação dos personagens, a criação dos inimigos, a execução das batalhas, etc.
+ 
+6. Conteúdo Extras
+ 
+As funções abaixo podem ser adicionadas para tornar a experiência do jogo mais dinâmica (avalie o tempo, a necessidade e confiabilidade dos itens citados, e decida se cabe ou não a implementação dessas funções).
+ 
+Sistema de Nível (cada monstro derrotada dá X pontos de experiência ao personagem, ao atingir Y pontos de experiência o personagem aumenta de nível)
+Sistema de Defesa (quanto maior a defesa menos dano é causado em ambos os combatentes)
+Sistema de Golpe Crítico: Todo golpe que é efetuado por um combatente tem X % de chance de ser crítico. Golpes críticos dão 50% a mais de dano.
+Sistema de ganho de itens: Ao matar X inimigos aparece um baú, neste baú podem vir itens aleatórios.
+Sistema de Raridade de Itens: Pode existir de 2 - 4 tipos de raridade de itens, com atributos e efeitos diferentes.
+Sistema de Habilidades de Itens: Pode existir uma classificação de itens chamada “Únicos”, como:  “Raio de Zeus”, “Cajado de Merlin”, etc. Estes itens adicionam habilidades extras à lista de habilidades do personagem.
