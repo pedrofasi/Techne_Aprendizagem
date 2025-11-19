@@ -5,12 +5,12 @@
 #include "Personagem.h"
 using namespace std;
 
-int Batalha::ordemTurno(Personagem& a, Personagem& b){
+bool Batalha::ordemTurno(Personagem& a, Personagem& b){
         if(a.Velocidade >= b.Velocidade){
-                // A começa a ação
-                return 1;
+                // Personagem[i] começa a ação
+                return true;
         }else{
-                // B começa a ação
-                return 0;
+                // Inimigo começa a ação
+                return false;
         }
 }

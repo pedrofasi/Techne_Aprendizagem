@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build and Run (g++)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                "Set-Location -Path '${workspaceFolder}'; & 'C:\\Techne\\Tools\\MinGW\\bin\\g++.exe' -fdiagnostics-color=always -g -o \"${workspaceFolder}\\main.exe\" *.cpp; if ($LASTEXITCODE -eq 0) { & \"${workspaceFolder}\\main.exe\" }"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}

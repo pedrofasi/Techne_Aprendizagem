@@ -12,30 +12,35 @@ using namespace std;
 class Personagem{
     public:
         string Nome;
+        string Classe;
         int PontosVida;
         int Forca;
         int Defesa;
         int Velocidade;
         bool Fuga = false;
+        int nivel;
+        int xpAtual;
         vector <Habilidade*> habilidades;
 
-    Personagem(string N, int Pv, int F, int D, int V){
+    Personagem(string N, string Cl, int Pv, int F, int D, int V){
         Nome = N;
+        Classe = Cl;
         PontosVida = Pv;
         Forca = F;
         Defesa = D;
         Velocidade = V;
     }
     void atacar(Personagem& a, double danoAdicional);
-    void defender(Personagem& a);
-    void fugir(Personagem& a);
+    void defender();
+    void fugir();
+    virtual bool estaVivo();
 };
 
 class Guerreiro:public Personagem{
     public:
         int Armadura;
         int Folego;
-    Guerreiro(string N, int Pv, int F, int D, int V):Personagem(N, Pv, F, D, V){
+    Guerreiro(string N, string Cl, int Pv, int F, int D, int V):Personagem(N, Cl, Pv, F, D, V){
         Armadura = 100;
         Folego = 100;
         Habilidade* habilidade = new Habilidade;
@@ -50,7 +55,7 @@ class Mago:public Personagem{
     public:
         int PontosMagia;
         int Stamina;
-    Mago(string N, int Pv, int F, int D, int V):Personagem(N, Pv, F, D, V){
+    Mago(string N, string Cl, int Pv, int F, int D, int V):Personagem(N, Cl, Pv, F, D, V){
         PontosMagia = 100;
         Stamina = 100;
         for(int i = 0; i< 3; i++){
@@ -79,7 +84,7 @@ class Arqueiro:public Personagem{
     public:
         int Destreza;
         int Flechas;
-    Arqueiro(string N, int Pv, int F, int D, int V):Personagem(N, Pv, F, D, V){
+    Arqueiro(string N, string Cl, int Pv, int F, int D, int V):Personagem(N, Cl, Pv, F, D, V){
         Destreza = 100;
         Flechas = 100;
         Habilidade* habilidade = new Habilidade;
@@ -94,13 +99,12 @@ class Inimigo:public Personagem{
     public:
         string Tipo;
         int RecompensaXP;
-    Inimigo(string N, int Pv, int F, int D, int V):Personagem(N, Pv, F, D, V){
+    Inimigo(string N, string Cl, int Pv, int F, int D, int V):Personagem(N, Cl, Pv, F, D, V){
         random_device rd;  
         mt19937 gen(rd());  
         uniform_int_distribution<> dist(1, 5);  
 
         int aleatorio = dist(gen); 
-
         if(aleatorio == 1){
             Tipo = "Fogo";
         }else if(aleatorio == 2){
@@ -112,10 +116,11 @@ class Inimigo:public Personagem{
         }else if(aleatorio == 5){
             Tipo = "Terrestre";
         }
-        RecompensaXP = 100;
+        RecompensaXP = Pv/5;
     }
 
     double calcularDano(Habilidade habilidade);
+    bool estaVivo() override;
 };
 
 #endif

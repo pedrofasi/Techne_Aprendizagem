@@ -10,7 +10,7 @@ using namespace std;
 class Batalha{
     public:
     
-    int ordemTurno(Personagem& a, Personagem& b);
+    bool ordemTurno(Personagem& a, Personagem& b);
 };
 
 #endif
