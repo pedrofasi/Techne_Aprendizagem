@@ -29,10 +29,13 @@ class Personagem{
         Forca = F;
         Defesa = D;
         Velocidade = V;
+        nivel = 1;
+        xpAtual = 0;
     }
     void atacar(Personagem& a, double danoAdicional);
     void defender();
     void fugir();
+    void upgrade(int XP);
     virtual bool estaVivo();
 };
 

@@ -5,10 +5,11 @@
 #include <chrono>
 #include "Personagem.h"
 #include "Habilidade.h"
+#include "Dano.h"
 using namespace std;
 
 void Personagem::atacar(Personagem& a, double danoAdicional){
-        cout << "[" <<Classe << "] " << Nome << " aplicou " << Forca + danoAdicional << " de dano ao inimigo: <" << a.Nome <<">" << endl;
+        cout << "[" <<Classe << "] " << Nome << " aplicou <" << Forca + danoAdicional << "> de dano ao inimigo: <" << a.Nome <<">" << endl;
         a.PontosVida -= Forca + danoAdicional;
 }
 
@@ -34,6 +35,24 @@ void Personagem::fugir(){
         }
 }
 
+void Personagem::upgrade(int XP){
+        xpAtual += XP;
+        int resto;
+        if(xpAtual >= 100){
+                int resto = xpAtual-100;
+                xpAtual = 100;
+        }
+        // a cada 100 de xp, upa +1 nivel
+        if(xpAtual % 100 == 0){
+                nivel++;
+                PontosVida *= nivel;
+                Forca *= nivel;
+                Defesa *= nivel;
+                Velocidade += nivel;
+                xpAtual = resto;
+        }        
+}
+
 bool Personagem::estaVivo(){
         if(PontosVida <= 0){
                 cout << "[" << Classe << "] " << Nome << " morreu!" << endl;
@@ -53,37 +72,11 @@ bool Inimigo::estaVivo(){
 }
 
 double Inimigo::calcularDano(Habilidade habilidade){
-        // habilidades -> vetor de habilidades (tipo, fogo, agua, gelo, flechaExplosiva, EspadaFlamejante etc)
-        // Inimigo b -> tipo (tipo fogo, agua, gelo, voador, animal)
-        if(habilidade.Tipo == "Fogo"){
-                if(Tipo == "Gelo"){
-                        return habilidade.DanoBase*2;
-                }else{
-                        return habilidade.DanoBase*0.5;
-                }
-        }else if(habilidade.Tipo == "Agua"){
-                if(Tipo == "Fogo"){
-                        return habilidade.DanoBase*2;
-                }else{
-                        return habilidade.DanoBase*0.5;
-                }
-        }else if(habilidade.Tipo == "Gelo"){
-                if(Tipo == "Agua"){
-                        return habilidade.DanoBase*2;
-                }else{
-                        return habilidade.DanoBase*0.5;
-                }
-        }else if(habilidade.Tipo == "Voador"){
-                if(Tipo == "Voador"){
-                        return habilidade.DanoBase*2;
-                }else{
-                        return habilidade.DanoBase*0.5;
-                }
-        }else if(habilidade.Tipo == "Terrestre"){
-                if(Tipo == "Terrestre"){
-                        return habilidade.DanoBase*2;
-                }else{
-                        return habilidade.DanoBase*0.5;
-                }
-        }
+
+    auto relacao = TabelaElementos::getRelacao(habilidade.Tipo);
+
+    double multiplicador = relacao->calcularMultiplicador(Tipo);
+
+    return habilidade.DanoBase * multiplicador;
+
 }

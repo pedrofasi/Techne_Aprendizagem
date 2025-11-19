@@ -63,7 +63,7 @@ class Jogo{
         uniform_int_distribution<> distVida(100, 500);
         uniform_int_distribution<> distForca(100, 200);
         uniform_int_distribution<> distDefesa(100, 200);
-        uniform_int_distribution<> distVelocidade(1, 5);
+        uniform_int_distribution<> distVelocidade(4, 8);
 
         // Sorteio do tipo de inimigo
         int idx = distInimigo(gen);
@@ -125,7 +125,7 @@ class Jogo{
         }
         cout << "\nPersonagens criados:" << endl;
         for(int i = 0 ; i< personagens.size(); i++){
-            cout << personagens[i]->Nome << " - " << personagens[i]->Classe << endl;
+            cout << "[" << personagens[i]->Classe << "] - " << personagens[i]->Nome << endl;
         }
     }
 
@@ -142,6 +142,7 @@ class Jogo{
         else{
             int tam = personagens.size();
             cout << "Rodada " << batalhas << " iniciada!" << endl;
+            mostrarInimigo();
             for(int i = 0 ; i < tam ; i++){
                 int contador = 0;
                 if(!personagens[i]->Fuga){
@@ -154,37 +155,59 @@ class Jogo{
 
                         if(opcRodada == 1){
                             Batalha x;
-                            if(x.ordemTurno(*personagens[i],*inimigos[0])){ // Analisa se Velocidade de Personagem[i] é maior que a velocidade do Inimigo
+                            // Decide quem vai atacar primeiro
+                            // Analisa se Velocidade de Personagem[i] é maior que a velocidade do Inimigo
+                            if(x.ordemTurno(*personagens[i],*inimigos[0])){ 
+                                // Calcular dano adicional dependendo da escolha da habilidade
                                 double danoAdd;
-                                danoAdd = opcAtacar(i);
+                                danoAdd = opcHabilidade(i);
+
+                                // Personagem[i] atacando
                                 personagens[i]->atacar(*inimigos[0], danoAdd);
+
+                                // Checa se Inimigo morreu
                                 if(!inimigos[0]->estaVivo()){
                                     reiniciar();
                                     return;
                                 }
+
+                                // Inimigo Atacando
                                 inimigoAtacar(i);
+
+                                // Checa se Personagem morreu
                                 if(!personagens[i]->estaVivo()){
-                                    personagens.erase(personagens.begin() + i); 
+                                    personagens.erase(personagens.begin() + i);
+                                    i--;
+                                    // Checa tb se ainda ha personagens
                                     if(personagens.size() == 0){
                                         cout << "\n\nGAME OVER =(\n\n";
                                         return;
                                     }
                                 }
                             }else{
+                                // Calcular dano adicional dependendo da escolha da habilidade
                                 double danoAdd;
-                                danoAdd = opcAtacar(i);
+                                danoAdd = opcHabilidade(i);
+
+                                // Inimigo Atacando.
                                 inimigoAtacar(i);
+                                // Verifica se Personagem morreu.
                                 if(!personagens[i]->estaVivo()){
                                     personagens.erase(personagens.begin() + i);
+                                    i--;
+                                    // Checa tb se ainda ha personagens
                                     if(personagens.size() == 0){
                                         cout << "\n\nGAME OVER =(\n\n";
                                         return;
                                     }
-                                }
-                                personagens[i]->atacar(*inimigos[0], danoAdd);
-                                if(!inimigos[0]->estaVivo()){
-                                    reiniciar();
-                                    return;
+                                }else{
+                                    // Personagem Atacando.
+                                    personagens[i]->atacar(*inimigos[0], danoAdd);
+                                    // Verifica se Inimigo morreu
+                                    if(!inimigos[0]->estaVivo()){
+                                        reiniciar();
+                                        return;
+                                    }
                                 }
                             }
                             break;
@@ -192,6 +215,14 @@ class Jogo{
                         else if(opcRodada == 2){
                             opcDefender(i);
                             inimigoAtacar(i);
+                            if(!personagens[i]->estaVivo()){
+                                personagens.erase(personagens.begin() + i);
+                                i--;
+                                if(personagens.size() == 0){
+                                    cout << "\n\nGAME OVER =(\n\n";
+                                    return;
+                                }
+                            }
                             break;
                         }
                         else if(opcRodada == 3){
@@ -200,6 +231,7 @@ class Jogo{
                                 inimigoAtacar(i);
                                 if(!personagens[i]->estaVivo()){
                                     personagens.erase(personagens.begin() + i);
+                                    i--;
                                     if(personagens.size() == 0){
                                         cout << "\n\nGAME OVER =(\n\n";
                                         return;
@@ -227,12 +259,16 @@ class Jogo{
         
     }
 
+    void mostrarInimigo(){
+        cout << "<"<< inimigos[0]->Nome <<"> esta no campo de batalha. Vida: <" << inimigos[0]->PontosVida << ">" << " XP ao derrotar: <" << inimigos[0]->RecompensaXP << ">" << endl;
+    }
+
     void reiniciar(){
+        int XP = inimigos[0]->RecompensaXP;
         inimigos.pop_back();
         int tam = personagens.size();
         for(int i = 0; i<tam; i++){
-            personagens[i]->PontosVida = 100;
-            personagens[i]->Fuga = false;
+            personagens[i]->upgrade(XP);
         }
     }
 
@@ -240,7 +276,7 @@ class Jogo{
         inimigos[0]->atacar(*personagens[i],0);
     }
 
-    double opcAtacar(int i){
+    double opcHabilidade(int i){
         cout << "Escolha a habilidade a ser utilizada: " << endl;
         int opcao;
         for(int j = 0 ; j < personagens[i]->habilidades.size() ; j++){
@@ -285,7 +321,7 @@ class Jogo{
             return;
         }
         for(int i = 0; i<tam ; i++){
-            cout << i+1 << "- [" << personagens[i]->Nome << "] - [" << personagens[i]->Classe << "] - " << personagens[i]->PontosVida << " de vida. NIVEL: " << personagens[i]->nivel << " / XP: " << personagens[i]->xpAtual << endl;
+            cout << i+1 << "- [" << personagens[i]->Nome << "] - [" << personagens[i]->Classe << "] - " << personagens[i]->PontosVida << " de vida - NIVEL: " << personagens[i]->nivel << " / XP: " << personagens[i]->xpAtual << endl;
         }
     }
 };
@@ -295,13 +331,13 @@ int main(){
 
     while(true){
         int opc;
-        cout << "SEJA BEM VINDO AO JOGO" << endl;
+        cout << "\nSEJA BEM VINDO AO JOGO" << endl;
         cout << "[1] Para iniciar o jogo" << endl;
-        cout << "[2] Para sair" << endl;
+        cout << "[0] Para sair" << endl;
         cin >> opc;
         if(opc == 1){
             jogo.menu();
-        }else if(opc == 2){
+        }else if(opc == 0){
             break;
         }else{
             cout << "DIGITE UMA OPCAO VALIDA!" << endl;
