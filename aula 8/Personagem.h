@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <chrono>
 #include "Habilidade.h"
 #include <random>
 
@@ -103,11 +104,13 @@ class Inimigo:public Personagem{
         string Tipo;
         int RecompensaXP;
     Inimigo(string N, string Cl, int Pv, int F, int D, int V):Personagem(N, Cl, Pv, F, D, V){
-        random_device rd;  
-        mt19937 gen(rd());  
-        uniform_int_distribution<> dist(1, 5);  
+        
+        auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+        mt19937 gen(seed);  
+        uniform_int_distribution<> distTipo(1, 5);
 
-        int aleatorio = dist(gen); 
+        int aleatorio = distTipo(gen); 
+
         if(aleatorio == 1){
             Tipo = "Fogo";
         }else if(aleatorio == 2){
