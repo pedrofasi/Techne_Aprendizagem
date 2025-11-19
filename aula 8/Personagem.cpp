@@ -5,12 +5,24 @@
 #include <chrono>
 #include "Personagem.h"
 #include "Habilidade.h"
+#include "Item.h"
 #include "Dano.h"
 using namespace std;
 
 void Personagem::atacar(Personagem& a, double danoAdicional){
-        cout << "[" <<Classe << "] " << Nome << " aplicou <" << Forca + danoAdicional << "> de dano ao inimigo: <" << a.Nome <<">" << endl;
-        a.PontosVida -= Forca + danoAdicional;
+        auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+        mt19937 gen(seed);  
+        uniform_int_distribution<> distTipo(1, 100);
+
+        int aleatorio = distTipo(gen);
+        if(aleatorio < 50){
+                // 5% de probabilidade ataque critico
+                cout << "[" <<Classe << "] " << Nome << " aplicou um golpe CRITICO <" << (Forca + danoAdicional)*2 << "> de dano ao inimigo: <" << a.Nome <<">" << endl;
+                a.PontosVida -= (Forca + danoAdicional)*2;
+        }else{
+                cout << "[" <<Classe << "] " << Nome << " aplicou <" << Forca + danoAdicional << "> de dano ao inimigo: <" << a.Nome <<">" << endl;
+                a.PontosVida -= Forca + danoAdicional;
+        }
 }
 
 void Personagem::defender(){
@@ -37,20 +49,23 @@ void Personagem::fugir(){
 
 void Personagem::upgrade(int XP){
         xpAtual += XP;
-        int resto;
+        mortesFeitas++;
         if(xpAtual >= 100){
-                int resto = xpAtual-100;
-                xpAtual = 100;
-        }
-        // a cada 100 de xp, upa +1 nivel
-        if(xpAtual % 100 == 0){
+                xpAtual = xpAtual-100;
                 nivel++;
                 PontosVida *= nivel;
                 Forca *= nivel;
                 Defesa *= nivel;
                 Velocidade += nivel;
-                xpAtual = resto;
-        }        
+        }
+        if(mortesFeitas % 5 == 0){
+                cout << "[" << Classe << "] " << Nome << " ganhou um bau por ter matado 5 criaturas!"<< endl;
+                Item *a = new Item;
+                a->abrirBau();
+                items.push_back(a);
+                cout << "[" << Classe << "] " << Nome << " abriu um bau!"<< endl;
+                cout << "[" << Classe << "] " << Nome << " conquistou: " << a->Nome << " - Raridade: " << a->Raridade << " - Dano: <" << a->danoBase << ">" << endl;
+        }
 }
 
 bool Personagem::estaVivo(){

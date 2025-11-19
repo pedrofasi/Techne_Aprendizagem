@@ -22,6 +22,7 @@ class Jogo{
     void mostrarInimigo();
     void reiniciar();
     void inimigoAtacar(int i);
+    double opcItem(int i);
     double opcHabilidade(int i);
     void opcDefender(int i);
     void opcFugir(int i);

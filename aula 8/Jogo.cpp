@@ -188,8 +188,24 @@ void Jogo::Batalhar()
                         {
                             // Calcular dano adicional dependendo da escolha da habilidade
                             double danoAdd;
-                            danoAdd = opcHabilidade(i);
-
+                            int opc2;
+                            cout << "Deseja utilizar uma habilidade ou item\n[1] Habilidade\n[2] Item\n[3] Voltar" << endl;
+                            cin >> opc2;
+                            if(opc2 == 1){
+                                danoAdd = opcHabilidade(i);
+                            }else if(opc2 == 2){
+                                danoAdd = opcItem(i);
+                                if(danoAdd == -1){
+                                    i--;
+                                    break;
+                                }
+                            }else if(opc2 == 3){
+                                i--;
+                                break;
+                            }else{
+                                cout << "Informe uma opcao valida" << endl;
+                            }
+                            
                             // Personagem[i] atacando
                             personagens[i]->atacar(*inimigos[0], danoAdd);
 
@@ -220,8 +236,23 @@ void Jogo::Batalhar()
                         {
                             // Calcular dano adicional dependendo da escolha da habilidade
                             double danoAdd;
-                            danoAdd = opcHabilidade(i);
-
+                            int opc2;
+                            cout << "Deseja utilizar uma habilidade ou item\n[1] Habilidade\n[2] Item\n[3] Voltar" << endl;
+                            cin >> opc2;
+                            if(opc2 == 1){
+                                danoAdd = opcHabilidade(i);
+                            }else if(opc2 == 2){
+                                danoAdd = opcItem(i);
+                                if(danoAdd == -1){
+                                    i--;
+                                    break;
+                                }
+                            }else if(opc2 == 3){
+                                i--;
+                                break;
+                            }else{
+                                cout << "Informe uma opcao valida" << endl;
+                            }
                             // Inimigo Atacando.
                             inimigoAtacar(i);
                             // Verifica se Personagem morreu.
@@ -289,8 +320,9 @@ void Jogo::Batalhar()
                     {
                         cout << "Escolha uma opcao valida!" << endl;
                     }
+                    cout << "\n[" << inimigos[0]->Nome << "] ainda esta vivo com: <" << inimigos[0]->PontosVida << "> de vida" << endl;
                 }
-                cout << "\n[" << inimigos[0]->Nome << "] ainda esta vivo com: <" << inimigos[0]->PontosVida << "> de vida" << endl;
+                
             }
             else
             {
@@ -318,7 +350,8 @@ void Jogo::reiniciar()
     inimigos.pop_back();
     int tam = personagens.size();
     for (int i = 0; i < tam; i++)
-    {
+    {   
+        personagens[i]->Fuga = false;
         personagens[i]->upgrade(XP);
     }
 }
@@ -326,6 +359,30 @@ void Jogo::reiniciar()
 void Jogo::inimigoAtacar(int i)
 {
     inimigos[0]->atacar(*personagens[i], 0);
+}
+
+double Jogo::opcItem(int i){
+    int tam = personagens[i]->items.size();
+    int danoAdicional;
+    if(tam == 0){
+        cout << "[" << personagens[i]->Classe << "] " << personagens[i]->Nome << " Nao possui itens para ser utilizado." << endl;
+        return -1;
+    }
+    cout << "Escolha o item a ser utilizado: " << endl;
+    int opcao;
+    for (int j = 0; j < tam; j++)
+    {
+        cout << "[" << j << "]" << personagens[i]->items[j]->Nome << " - Dano: " << personagens[i]->items[j]->danoBase << endl;
+    }
+    while(true){
+        cin >> opcao;
+        if(opcao < 0 || opcao >= personagens[i]->items.size()){
+            cout << "\nEscolha uma opcao valida." << endl;
+        }else{
+            danoAdicional = personagens[i]->items[opcao]->danoBase;
+            return danoAdicional;
+        }
+    }
 }
 
 double Jogo::opcHabilidade(int i)

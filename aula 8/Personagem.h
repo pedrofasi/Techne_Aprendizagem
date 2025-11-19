@@ -6,6 +6,7 @@
 #include <vector>
 #include <chrono>
 #include "Habilidade.h"
+#include "Item.h"
 #include <random>
 
 using namespace std;
@@ -21,7 +22,9 @@ class Personagem{
         bool Fuga = false;
         int nivel;
         int xpAtual;
+        int mortesFeitas;
         vector <Habilidade*> habilidades;
+        vector <Item*> items;
 
     Personagem(string N, string Cl, int Pv, int F, int D, int V){
         Nome = N;
