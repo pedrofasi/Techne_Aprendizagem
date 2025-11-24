@@ -1,0 +1,39 @@
+ATIVIDADE: “Sistema de Utilidades do Sistema Operacional (DLL Tools)”
+Objetivo:
+Criar uma DLL chamada systemtools.dll que oferece utilidades para outros programas, e um aplicativo que consome essas funções.
+O foco é modularidade, import/export, e interação com strings.
+
+ENUNCIADO DA ATIVIDADE
+Você foi contratado para criar uma biblioteca de utilidades do sistema, que será distribuída como uma DLL para outros desenvolvedores.
+Crie uma DLL chamada systemtools.dll, contendo funções úteis relacionadas a:
+
+Manipulação de textos
+Informações do sistema
+Transformações simples em strings
+Utilidades gerais que qualquer programa pode usar
+
+Depois, crie um programa independente que carregue essa DLL e utilize suas funções.
+ Requisitos da DLL (systemtools)
+
+A DLL deve exportar funções com os seguintes comportamentos:
+toUpper
+Recebe uma string e devolve a mesma string em maiúsculas.
+toLower
+Recebe uma string e devolve em minúsculas.
+reverseText
+Recebe um texto e devolve o texto invertido.
+getAppInfo
+Retorna uma string curta com informações do programa:
+maskEmail
+Recebe um e-mail e retorna assim:
+Extra (opcional): countWords
+Conta quantas palavras existem na string.
+
+Programa que usa a DLL
+Faça um programa (EXE) com menu simples:
+1 - Converter texto para MAIÚSCULAS2 - Converter texto para minúsculas3 - Inverter texto4 - Mascarar e-mail5 - Mostrar info da DLL0 - Sair
+Ele deve:
+ler a opção do usuário
+ler a string necessária
+chamar a função DA DLL
+exibir o resultado
