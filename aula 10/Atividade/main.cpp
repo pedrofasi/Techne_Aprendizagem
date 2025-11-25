@@ -35,6 +35,7 @@ void bhaskara(double a,double b,double c){
 int main(){
     int a,b,c;
     int opc;
+    bool saiu;
     while(true){
         try{
             cout << "Informe o A:" << endl;
@@ -49,14 +50,20 @@ int main(){
         } catch(const exception& e){
             cout << "Erro: " << e.what() << endl;
         }
-        cout << "Deseja continuar?\n[1] Continuar\n[0] Sair" << endl;
-        cin >> opc;
-        if(opc == 1){
-            continue;
-        }else if(opc==0){
+        while(true){
+            cout << "Deseja continuar?\n[1] Continuar\n[0] Sair" << endl;
+            cin >> opc;
+            if(opc == 1){
+                saiu = false;
+            }else if(opc==0){
+                saiu = true;
+                break;
+            }else{
+                cout << "Selecione uma opcao valida." << endl;
+            }
+        }
+        if(saiu){
             break;
-        }else{
-            cout << "Selecione uma opcao valida." << endl;
         }
     }
 
