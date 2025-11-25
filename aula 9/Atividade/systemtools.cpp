@@ -32,27 +32,25 @@ string reverseText(string a){
     // b[0] = 5 e b[4] = 1;
     int tam = a.size();
     int aux = tam-1;
-    string b;
+    string b(tam,'\0');
     for(int i = 0; i< tam; i++){
         b[i] = a[aux];
         aux--;
     }
-    b[tam-1] = '\0';
     return b;
 }
 string getAppInfo(){
-    cout << "Aplicativo desenvolvido por Pedro Henrique Reis Rodrigues" << endl;
+    cout << "DLL desenvolvida por Pedro Henrique Reis Rodrigues" << endl;
 }
 string maskEmail(string a){
     int tam = a.size();
-    for(int i = 0; i< tam; i++){
+    for(int i = 0; i < tam; i++){
         if(a[i] == '@'){
             break;
         }else{
             a[i] = '*';
         }
     }
-    cout << "[MASK] - " << a << endl;
     return a;
 }
 int countWords(string a){
@@ -60,12 +58,18 @@ int countWords(string a){
     bool novaPalavra = false;
     int words = 0;
     for(int i = 0; i< tam; i++){
-        if(a[i] == ' ' && novaPalavra){
-            words++;
-            novaPalavra = false;
+        if(a[i] == ' ' || a[i] == '\t'){
+            if(novaPalavra){
+                words++;
+                novaPalavra = false;
+            }
         }else{
             novaPalavra = true;
         }
+    }
+
+    if(novaPalavra){
+        words++;
     }
     return words;
 }
