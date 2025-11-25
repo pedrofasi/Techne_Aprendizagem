@@ -33,7 +33,7 @@ void bhaskara(double a,double b,double c){
 }
 
 int main(){
-    int a,b,c;
+    double a,b,c;
     int opc;
     bool saiu;
     while(true){
