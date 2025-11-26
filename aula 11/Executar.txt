@@ -1,0 +1,23 @@
+Para compilar:
+
+
+-----------------------------------------------------------------------
+OCI.h
+usar o msvc
+
+0 - abrir x64 Native Tools Command Prompt for VS 2022 e ir na pasta do projeto
+
+1- cl /EHsc main.cpp /I"C:\Oracle\instantclient_21_19\sdk\include" /link /LIBPATH:"C:\Oracle\instantclient_21_19\sdk\lib\msvc" oci.lib
+
+2- main.exe
+
+-----------------------------------------------------------------------
+OCCI.h
+usar o msvc
+0 - abrir x64 Native Tools Command Prompt for VS 2022 e ir na pasta do projeto
+
+1- cl /EHsc /I"C:\oracle\instantclient_21_19\sdk\include" main2.cpp "C:\Oracle\instantclient_21_19\sdk\lib\msvc\oraocci21.lib" "C:\Oracle\instantclient_21_19\sdk\lib\msvc\oci.lib"
+
+2- main2.exe
+
+

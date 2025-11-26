@@ -1,0 +1,9 @@
+Exercício – Agenda Telefônica Simples
+Objetivo: praticar operações básicas de CRUD no map.
+Descrição:
+Criar uma agenda que guarda nome → telefone usando std::map<std::string, std::string>.
+O programa deve permitir:
+adicionar um contato
+buscar um contato pelo nome
+listar todos os contatos
+Sem menu complexo — pode ser tudo direto no main() para praticar.
